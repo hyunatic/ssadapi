@@ -4,7 +4,7 @@
         private $dbhost = 'asedb.mysql.database.azure.com';
         private $dbuser = 'aseadmin@asedb';
         private $dbpass = 'Pa$$w0rd';
-        private $dbname = 'ase';
+        private $dbname = 'ssad';
         // Connect
         public function connect(){
             $mysql_connect_str = "mysql:host=$this->dbhost;dbname=$this->dbname";

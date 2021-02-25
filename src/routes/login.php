@@ -2,13 +2,35 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->get('/api/fblogin', function(Request $request, Response $response){
-    echo '{"notice": {"fb": "Logged in"}';
+$app->post('/api/login', function(Request $request, Response $response){
+    $email = $request->getParam('email');
+    $password = $request->getParam('password');
+
+    $tsql = "SELECT id From userlogin WHERE email = '$email' AND password = '$password'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo '[{ "userExists" : '. count($results) .' }]';
+    
 });
 
 
-$app->get('/api/fblcallback', function(Request $request, Response $response){
-  
+$app->post('/api/fblogin', function(Request $request, Response $response){
+    $fbid = $request->getParam('fbid');
+
+    $tsql = "SELECT fbid From userlogin WHERE fbid = '$fbid'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo '[{ "userExists" : '. count($results) .' }]';
 });
 
 
@@ -39,7 +61,7 @@ $app->post('/api/numbergame/add', function(Request $request, Response $response)
 
         $stmt->execute();
 
-        echo '{"notice": {"text": "Score Added"}';
+        echo '{"notice": }';
 
     } catch(PDOException $e){
         echo '{"error": {"text": '.$e->getMessage().'}';
