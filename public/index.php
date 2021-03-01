@@ -22,7 +22,7 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
 });
 
 //Routes
-require '../src/routes/login.php';
+require '../src/routes/auth.php';
 require '../src/routes/game.php';
 
 
