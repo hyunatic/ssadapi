@@ -10,4 +10,16 @@ $app->post('/api/test', function(Request $request, Response $response){
     echo '[{ "param1" : '. $param1 .' , "param2": '. $param2. ' }]';
 });
 
+$app->get('/api/leaderboard', function(Request $request, Response $response){
+    $tsql = "SELECT * From leaderboard";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+});
+
 ?>
