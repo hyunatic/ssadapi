@@ -90,6 +90,28 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
     }
 });
 
+$app->post('/api/delete/tutquest', function(Request $request, Response $response){
+    $questid = $request->getParam('questid');
+    $sql = "DELETE from quest WHERE questid = :questid";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(':questid', $questid);
+        $stmt->execute();
+
+        echo '[{"response": "Tutorial Deleted"}]';
+
+    } catch(PDOException $e){
+        echo '[{"error": {"text": '.$e->getMessage().'}]';
+    }
+});
+
 $app->get('/api/tutlist', function(Request $request, Response $response){
     $tsql = "SELECT * From tutorial";
 
