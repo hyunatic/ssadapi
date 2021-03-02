@@ -40,9 +40,10 @@ $app->post('/api/register', function(Request $request, Response $response){
     $password = $request->getParam('password');
     $name = $request->getParam('name');
     $usertype = $request->getParam('usertype');
+    $tutgrp = $request->getParam('tutgrp');
 
-    $sql = "INSERT INTO userlogin (fbid,email,password,name,usertype) VALUES
-    (:fbid,:email,:password,:name,:usertype)";
+    $sql = "INSERT INTO userlogin (fbid,email,password,name,usertype,tutgrp) VALUES
+    (:fbid,:email,:password,:name,:usertype,:tutgrp)";
 
     try{
         // Get DB Object
@@ -57,6 +58,7 @@ $app->post('/api/register', function(Request $request, Response $response){
         $stmt->bindParam(':password',   $password);
         $stmt->bindParam(':name',  $name);
         $stmt->bindParam(':usertype',    $usertype);
+        $stmt->bindParam(':tutgrp',    $tutgrp);
 
 
         $stmt->execute();
