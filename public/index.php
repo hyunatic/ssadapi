@@ -5,7 +5,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require '../vendor/autoload.php';
 require '../src/config/db.php';
 
-
 $config = ['settings' => ['displayErrorDetails' => true]];
 $app = new Slim\App($config);
 
@@ -24,6 +23,8 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
 //Routes
 require '../src/routes/auth.php';
 require '../src/routes/game.php';
+require '../src/routes/tutorial.php';
+
 
 
 $app->run();
