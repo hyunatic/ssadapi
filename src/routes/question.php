@@ -4,12 +4,12 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->post('/api/add/tutquest', function(Request $request, Response $response){
 
-    $tutname = $request->getParam('tutname');
+    $tutid = $request->getParam('tutid');
     $tutgrp = $request->getParam('tutgrp');
-    $createdby = $request->getParam('createdby');
+    $question = $request->getParam('question');
 
-    $sql = "INSERT INTO tutorial (tutname, tutgrp, createdby) VALUES
-    (:tutname,:tutgrp,:createdby)";
+    $sql = "INSERT INTO quest (question, tutgrp, tutid) VALUES
+    (:question,:tutgrp,:tutid)";
 
     try{
         // Get DB Object
@@ -19,14 +19,20 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
 
         $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':tutname', $tutname);
+        $stmt->bindParam(':question', $question);
         $stmt->bindParam(':tutgrp',  $tutgrp);
-        $stmt->bindParam(':createdby',   $createdby);
-
+        $stmt->bindParam(':tutid',   $tutid);
 
         $stmt->execute();
 
-        echo '[{"response": "Tutorial Question Registered"}]';
+        $tsql1 = "SELECT * From quest ORDER BY questid DESC LIMIT 1";
+        $stmt = $db->prepare($tsql1);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt->execute();
+       
+        echo json_encode($results);
 
     } catch(PDOException $e){
         echo '[{"error": {"text": '.$e->getMessage().'}]';
