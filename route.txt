@@ -1,0 +1,74 @@
+Link Example:
+https://ssadapi.hyunatic.com/public/index.php/api/login
+
+All link will return a JSON array
+
+Authentication:
+// This is email login //
+/api/login [POST]
+{
+    "email" : string,
+    "password" : string
+}
+
+// This is Facebook login //
+/api/fblogin [POST]
+{
+    "fbid": string
+}
+
+// User Registration //
+/api/register [POST]
+{
+    "fbid": string,
+    "email": string,
+    "password": string,
+    "name": string,
+    "usertype": string,
+    "tutgrp": string
+}
+
+LeaderBoard:
+// Get Leader Scores //
+/api/leaderboard [GET]
+
+Tutorial:
+// Adding Tutorial Group //
+/api/add/tutorial [POST]
+{
+    "tutname" : string,
+    "tutgrp": string,
+    "createdby": string,
+    "difficulty": string,
+    "coins": string
+}
+
+// Deleting Tutorial Group //
+/api/delete/tutorial [POST]
+{
+    "tutid": string
+}
+
+// Get Tutorial Group List //
+/api/tutlist [GET]
+
+Question:
+// Add Question on Selected Tutorial List //
+/api/add/tutquest
+{
+    "tutid": string,
+    "tutgrp": string,
+    "question": string
+}
+
+// Delete Question on Selected Tutorial List //
+/api/delete/tutquest [POST]
+{
+    "questid" : string
+}
+
+// Get Question on Selected Tutorial List //
+/api/show/tutquest [POST]
+{
+    "tutid": string
+}
