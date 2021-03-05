@@ -27,10 +27,16 @@ $app->post('/api/add/tutorial', function(Request $request, Response $response){
         $stmt->bindParam(':difficulty',   $difficulty);
         $stmt->bindParam(':coins',   $coins);
 
-
         $stmt->execute();
 
-        echo '[{"response": "Tutorial Registered"}]';
+        $tsql1 = "SELECT * From tutorial ORDER BY tutid DESC LIMIT 1";
+        $stmt = $db->prepare($tsql1);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt->execute();
+       
+        echo json_encode($results);
 
     } catch(PDOException $e){
         echo '[{"error": {"text": '.$e->getMessage().'}]';
