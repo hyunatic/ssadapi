@@ -70,6 +70,20 @@ $app->post('/api/register', function(Request $request, Response $response){
     }
 });
 
+$app->post('/api/tut/student', function(Request $request, Response $response){
+    $tutgrp = $request->getParam('tutgrp');
+
+    $tsql = "SELECT fbid, email, name, usertype, tutgrp From userlogin WHERE tutgrp = '$tutgrp'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
 
 
 ?>
