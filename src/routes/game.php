@@ -22,9 +22,9 @@ $app->get('/api/leaderboard', function(Request $request, Response $response){
 });
 
 $app->post('/api/tut/student', function(Request $request, Response $response){
-    $tutgrp = $request->getParam('tutgrp');
+    $tutid = $request->getParam('tutid');
 
-    $tsql = "SELECT * From leaderboard WHERE tutgrp = '$tutgrp'";
+    $tsql = "SELECT * From leaderboard WHERE tutid = '$tutid'";
 
     $db = new db();
     // Connect
