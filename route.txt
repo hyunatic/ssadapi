@@ -28,9 +28,46 @@ Authentication:
     "tutgrp": string
 }
 
+// Get Student Information for Marking Page //
+/api/studentinfo [POST]
+{
+    "id" : string
+}
+
 LeaderBoard:
 // Get Leader Scores //
 /api/leaderboard [GET]
+
+// Get all Student doing the current Tutorial //
+/api/tut/student [POST]
+{
+    "tutid" : string
+}
+
+// Get all the information for Professor to mark in the Marking page //
+/api/student/submission [POST]
+{
+    "id" : string
+}
+
+// Unity Game application to submit student's answers //
+/api/submission [POST]
+{
+    "name" : string,
+    "image" : string,
+    "date" : string,
+    "tutgrp" : string,
+    "tutid" : string,
+    "studid" : string,
+}
+
+// Professor to mark student's score and give comments //
+/api/marking/update [POST]
+{
+    "id" : string,
+    "score" : string,
+    "comment" : string
+}
 
 Tutorial:
 // Adding Tutorial Group //
