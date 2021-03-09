@@ -36,4 +36,19 @@ $app->post('/api/tut/student', function(Request $request, Response $response){
     
 });
 
+$app->post('/api/student/submission', function(Request $request, Response $response){
+    $id = $request->getParam('id');
+
+    $tsql = "SELECT * From leaderboard WHERE id = '$id'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
 ?>
