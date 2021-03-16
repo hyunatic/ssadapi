@@ -6,7 +6,7 @@ $app->post('/api/login', function(Request $request, Response $response){
     $email = $request->getParam('email');
     $password = $request->getParam('password');
 
-    $tsql = "SELECT id, fbid, email, name, usertype, tutgrp From userlogin WHERE email = '$email' AND password = '$password'";
+    $tsql = "SELECT id, fbid, email, name, usertype, tutgrp, picture From userlogin WHERE email = '$email' AND password = '$password'";
 
     $db = new db();
     // Connect
@@ -22,7 +22,7 @@ $app->post('/api/login', function(Request $request, Response $response){
 $app->post('/api/fblogin', function(Request $request, Response $response){
     $fbid = $request->getParam('fbid');
 
-    $tsql = "SELECT id, fbid, email, name, usertype, tutgrp From userlogin WHERE fbid = '$fbid'";
+    $tsql = "SELECT id, fbid, email, name, usertype, tutgrp, picture From userlogin WHERE fbid = '$fbid'";
 
     $db = new db();
     // Connect
@@ -73,7 +73,7 @@ $app->post('/api/register', function(Request $request, Response $response){
 $app->post('/api/studentinfo', function(Request $request, Response $response){
     $id = $request->getParam('id');
 
-    $tsql = "SELECT fbid, email, name, usertype, tutgrp From userlogin WHERE id = '$id' AND usertype = 'Student'";
+    $tsql = "SELECT fbid, email, name, usertype, tutgrp, picture From userlogin WHERE id = '$id' AND usertype = 'Student'";
 
     $db = new db();
     // Connect
@@ -82,6 +82,23 @@ $app->post('/api/studentinfo', function(Request $request, Response $response){
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($results);
+    
+});
+
+$app->post('/api/profile/update', function(Request $request, Response $response){
+    $id = $request->getParam('id');
+    $score = $request->getParam('score');
+    $comment = $request->getParam('comment');
+
+    $tsql = "UPDATE userlogin SET score = '$score', comment = '$comment' WHERE id = '$id'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+
+    echo '[{"response": "Update Scores Successfully"}]';
     
 });
 
