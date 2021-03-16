@@ -86,11 +86,13 @@ $app->post('/api/studentinfo', function(Request $request, Response $response){
 });
 
 $app->post('/api/profile/update', function(Request $request, Response $response){
-    $id = $request->getParam('id');
-    $score = $request->getParam('score');
-    $comment = $request->getParam('comment');
 
-    $tsql = "UPDATE userlogin SET score = '$score', comment = '$comment' WHERE id = '$id'";
+    $id = $request->getParam('id');
+    $email = $request->getParam('email');
+    $picture = $request->getParam('picture');
+    $tutgrp = $request->getParam('tutgrp');
+
+    $tsql = "UPDATE userlogin SET email = '$email', comment = '$picture', tutgrp = '$tutgrp' WHERE id = '$id'";
 
     $db = new db();
     // Connect
@@ -98,7 +100,7 @@ $app->post('/api/profile/update', function(Request $request, Response $response)
     $stmt = $db->prepare($tsql);
     $stmt->execute();
 
-    echo '[{"response": "Update Scores Successfully"}]';
+    echo '[{"response": "Update Profile Successfully"}]';
     
 });
 
