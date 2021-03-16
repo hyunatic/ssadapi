@@ -92,7 +92,7 @@ $app->post('/api/profile/update', function(Request $request, Response $response)
     $picture = $request->getParam('picture');
     $tutgrp = $request->getParam('tutgrp');
 
-    $tsql = "UPDATE userlogin SET email = '$email', comment = '$picture', tutgrp = '$tutgrp' WHERE id = '$id'";
+    $tsql = "UPDATE userlogin SET email = '$email', picture = '$picture', tutgrp = '$tutgrp' WHERE id = '$id'";
 
     $db = new db();
     // Connect
