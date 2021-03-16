@@ -85,14 +85,31 @@ $app->post('/api/studentinfo', function(Request $request, Response $response){
     
 });
 
+$app->post('/api/profinfo', function(Request $request, Response $response){
+    $id = $request->getParam('id');
+
+    $tsql = "SELECT fbid, email, name, usertype, tutgrp, picture From userlogin WHERE id = '$id' AND usertype = 'Professor'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
 $app->post('/api/profile/update', function(Request $request, Response $response){
 
     $id = $request->getParam('id');
+    $name = $request->getParam('name');
+    $fbid = $request->getParam('fbid');
     $email = $request->getParam('email');
     $picture = $request->getParam('picture');
     $tutgrp = $request->getParam('tutgrp');
 
-    $tsql = "UPDATE userlogin SET email = '$email', picture = '$picture', tutgrp = '$tutgrp' WHERE id = '$id'";
+    $tsql = "UPDATE userlogin SET email = '$email', picture = '$picture', tutgrp = '$tutgrp', name = '$name', fbid = '$fbid' WHERE id = '$id'";
 
     $db = new db();
     // Connect
@@ -101,6 +118,23 @@ $app->post('/api/profile/update', function(Request $request, Response $response)
     $stmt->execute();
 
     echo '[{"response": "Update Profile Successfully"}]';
+    
+});
+
+$app->post('/api/facebook/link', function(Request $request, Response $response){
+
+    $id = $request->getParam('id');
+    $fbid = $request->getParam('fbid');
+
+    $tsql = "UPDATE userlogin SET fbid = '$fbid' WHERE id = '$id'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+
+    echo '[{"response": "Facebook Account Linked Successfully"}]';
     
 });
 

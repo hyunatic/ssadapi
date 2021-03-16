@@ -10,7 +10,7 @@ $app->post('/api/test', function(Request $request, Response $response){
 });
 
 $app->get('/api/leaderboard', function(Request $request, Response $response){
-    $tsql = "SELECT * From leaderboard";
+    $tsql = "SELECT id, name, date, score, tutgrp, tutid, comment, studid From leaderboard";
 
     $db = new db();
     // Connect
