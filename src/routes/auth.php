@@ -60,7 +60,7 @@ $app->post('/api/register', function(Request $request, Response $response){
         $stmt->bindParam(':name',  $name);
         $stmt->bindParam(':usertype',    $usertype);
         $stmt->bindParam(':tutgrp',    $tutgrp);
-        $stmt->bindParam(':picture',    $tutgrp);
+        $stmt->bindParam(':picture',    $picture);
 
 
         $stmt->execute();
