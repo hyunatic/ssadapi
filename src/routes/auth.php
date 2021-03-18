@@ -18,6 +18,22 @@ $app->post('/api/login', function(Request $request, Response $response){
     
 });
 
+$app->post('/api/unity/login', function(Request $request, Response $response){
+    $email = $request->getParam('email');
+    $password = $request->getParam('password');
+
+    $tsql = "SELECT id, fbid, email, name, usertype, tutgrp From userlogin WHERE email = '$email' AND password = '$password'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
 
 $app->post('/api/fblogin', function(Request $request, Response $response){
     $fbid = $request->getParam('fbid');
@@ -33,6 +49,19 @@ $app->post('/api/fblogin', function(Request $request, Response $response){
     echo json_encode($results);
 });
 
+$app->post('/api/unity/fblogin', function(Request $request, Response $response){
+    $fbid = $request->getParam('fbid');
+
+    $tsql = "SELECT id, fbid, email, name, usertype, tutgrp From userlogin WHERE fbid = '$fbid'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+});
 
 $app->post('/api/register', function(Request $request, Response $response){
     $fbid = $request->getParam('fbid');
