@@ -28,10 +28,34 @@ Authentication:
     "tutgrp": string
 }
 
-// Get Student Information for Marking Page //
+// Get Student Information for Marking and Profile Page //
 /api/studentinfo [POST]
 {
     "id" : string
+}
+
+// Get Professor Information for Profile Page //
+/api/profinfo [POST]
+{
+    "id" : string
+}
+
+// Update Profile for Professor or Student //
+/api/profile/update [POST]
+{
+    "id": string,
+    "name": string,
+    "fbid": string,
+    "email": string,
+    "picture": string,
+    "tutgrp": stirng
+}
+
+// Link user account with facebook account //
+/api/facebook/link [POST]
+{
+    "id" : string,
+    "fbid" : string
 }
 
 LeaderBoard:

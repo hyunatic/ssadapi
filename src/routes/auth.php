@@ -41,9 +41,10 @@ $app->post('/api/register', function(Request $request, Response $response){
     $name = $request->getParam('name');
     $usertype = $request->getParam('usertype');
     $tutgrp = $request->getParam('tutgrp');
+    $picture = "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg";
 
-    $sql = "INSERT INTO userlogin (fbid,email,password,name,usertype,tutgrp) VALUES
-    (:fbid,:email,:password,:name,:usertype,:tutgrp)";
+    $sql = "INSERT INTO userlogin (fbid,email,password,name,usertype,tutgrp,picture) VALUES
+    (:fbid,:email,:password,:name,:usertype,:tutgrp,:picture)";
 
     try{
         // Get DB Object
@@ -59,6 +60,7 @@ $app->post('/api/register', function(Request $request, Response $response){
         $stmt->bindParam(':name',  $name);
         $stmt->bindParam(':usertype',    $usertype);
         $stmt->bindParam(':tutgrp',    $tutgrp);
+        $stmt->bindParam(':picture',    $tutgrp);
 
 
         $stmt->execute();
