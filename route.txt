@@ -113,6 +113,12 @@ Tutorial:
 // Get Tutorial Group List //
 /api/tutlist [GET]
 
+// Get Current User's Tutorial Group Question List //
+/api/user/tutlist [POST]
+{
+    "tutgrp": string
+}
+
 Question:
 // Add Question on Selected Tutorial List //
 /api/add/tutquest
