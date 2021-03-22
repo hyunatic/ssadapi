@@ -7,9 +7,10 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
     $tutid = $request->getParam('tutid');
     $tutgrp = $request->getParam('tutgrp');
     $question = $request->getParam('question');
+    $solution = $request->getParam('solution');
 
-    $sql = "INSERT INTO quest (question, tutgrp, tutid) VALUES
-    (:question,:tutgrp,:tutid)";
+    $sql = "INSERT INTO quest (question, tutgrp, tutid, solution) VALUES
+    (:question,:tutgrp,:tutid, :solution)";
 
     try{
         // Get DB Object
@@ -22,6 +23,7 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
         $stmt->bindParam(':question', $question);
         $stmt->bindParam(':tutgrp',  $tutgrp);
         $stmt->bindParam(':tutid',   $tutid);
+        $stmt->bindParam(':solution',   $solution);
 
         $stmt->execute();
 
@@ -74,5 +76,20 @@ $app->post('/api/show/tutquest', function(Request $request, Response $response){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($results);
 });
+
+$app->post('/api/show/unity/tutquest', function(Request $request, Response $response){
+    $tutid = $request->getParam('tutid');
+
+    $tsql = "SELECT questid, question, tutgrp, tutid From quest WHERE tutid = $tutid";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+});
+
 
 ?>
