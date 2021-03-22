@@ -17,6 +17,12 @@ Authentication:
     "fbid": string
 }
 
+// Validate and check exsisting email //
+/api/email/check [POST]
+{
+    "email": string
+}
+
 // User Registration //
 /api/register [POST]
 {
