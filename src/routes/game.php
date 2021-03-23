@@ -186,4 +186,20 @@ $app->post('/api/get/competitors', function(Request $request, Response $response
     
 });
 
+$app->post('/api/send/comment', function(Request $request, Response $response){
+    $compid = $request->getParam('compid');
+    $comment = $request->getParam('comment');
+
+    $tsql = "UPDATE competiton SET comment = '$comment' WHERE competitionid = '$compid'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+
+    echo '[{"response": "Update Comment Successfully"}]';
+    
+});
+
 ?>
