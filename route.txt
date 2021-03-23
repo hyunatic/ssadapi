@@ -65,7 +65,7 @@ Authentication:
 }
 
 LeaderBoard:
-// Get Leader Scores //
+// Get Leader Scores that already marked //
 /api/leaderboard [GET]
 
 // Get all Student doing the current Tutorial //
