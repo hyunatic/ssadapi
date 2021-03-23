@@ -123,4 +123,64 @@ $app->post('/api/student/completed/tut', function(Request $request, Response $re
     
 });
 
+$app->post('/api/start/compete', function(Request $request, Response $response){
+    $requestorid = $request->getParam('requestorid');
+    $competitorid = $request->getParam('competitorid');
+    $leaderboardid = $request->getParam('leaderboardid');
+
+
+    $sql = "INSERT INTO competition (requestorid, competitorid, leaderboardid) VALUES
+    (:requestorid,:competitorid,:leaderboardid)";
+
+    try{
+        // Get DB Object
+        $db = new db();
+        // Connect
+        $db = $db->connect();
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(':requestorid', $requestorid);
+        $stmt->bindParam(':competitorid',  $competitorid);
+        $stmt->bindParam(':leaderboardid',   $leaderboardid);
+
+        $stmt->execute();
+
+        echo '[{"response": "Compete Request is Successful"}]';
+
+    } catch(PDOException $e){
+        echo '[{"error": {"text": '.$e->getMessage().'}]';
+    }
+    
+});
+
+$app->post('/api/get/challengers', function(Request $request, Response $response){
+    $competitorid = $request->getParam("competitorid");
+
+    $tsql = "";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
+$app->post('/api/get/competitors', function(Request $request, Response $response){
+    $competitorid = $request->getParam("requestorid");
+    $tsql = "";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
 ?>
