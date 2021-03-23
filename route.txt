@@ -74,6 +74,12 @@ LeaderBoard:
     "tutid" : string
 }
 
+// Get Student Finished Tutorial using for competing //
+/api/student/completed/tut [POST]
+{
+    "name" : string
+}
+
 // Get all the information for Professor to mark in the Marking page //
 /api/student/submission [POST]
 {
