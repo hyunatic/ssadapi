@@ -109,9 +109,9 @@ $app->post('/api/marking/update', function(Request $request, Response $response)
 });
 
 $app->post('/api/student/completed/tut', function(Request $request, Response $response){
-    $name = $request->getParam('name');
+    $studid = $request->getParam('studid');
 
-    $tsql = "Select id, tutname, score, date, name from leaderboard, tutorial WHERE leaderboard.tutid = tutorial.tutid AND name = '$name' AND score != '' GROUP BY tutname ORDER BY score DESC";
+    $tsql = "Select id, tutname, score, date, name from leaderboard, tutorial WHERE leaderboard.tutid = tutorial.tutid AND studid = '$studid' AND score != '' GROUP BY tutname ORDER BY score DESC";
 
     $db = new db();
     // Connect
