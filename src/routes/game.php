@@ -127,9 +127,10 @@ $app->post('/api/start/compete', function(Request $request, Response $response){
     $requestorid = $request->getParam('requestorid');
     $competitorid = $request->getParam('competitorid');
     $leaderboardid = $request->getParam('leaderboardid');
+    $msg = '';
 
     $sql = "INSERT INTO competiton (requestorid, competitorid, leaderboardid) VALUES
-    (:requestorid,:competitorid,:leaderboardid)";
+    (:requestorid,:competitorid,:leaderboardid,:msg)";
 
     try{
         // Get DB Object
@@ -142,6 +143,7 @@ $app->post('/api/start/compete', function(Request $request, Response $response){
         $stmt->bindParam(':requestorid', $requestorid);
         $stmt->bindParam(':competitorid',  $competitorid);
         $stmt->bindParam(':leaderboardid',   $leaderboardid);
+        $stmt->bindParam(':msg',   $msg);
 
         $stmt->execute();
 
