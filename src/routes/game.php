@@ -202,4 +202,19 @@ $app->post('/api/send/comment', function(Request $request, Response $response){
     
 });
 
+$app->post('/api/get/comment', function(Request $request, Response $response){
+    $compid = $request->getParam('compid');
+
+    $tsql = "SELECT * From competiton WHERE competitionid = '$compid'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
 ?>
