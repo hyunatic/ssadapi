@@ -128,8 +128,7 @@ $app->post('/api/start/compete', function(Request $request, Response $response){
     $competitorid = $request->getParam('competitorid');
     $leaderboardid = $request->getParam('leaderboardid');
 
-
-    $sql = "INSERT INTO competition (requestorid, competitorid, leaderboardid) VALUES
+    $sql = "INSERT INTO competiton (requestorid, competitorid, leaderboardid) VALUES
     (:requestorid,:competitorid,:leaderboardid)";
 
     try{
