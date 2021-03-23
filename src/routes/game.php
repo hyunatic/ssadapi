@@ -190,7 +190,7 @@ $app->post('/api/send/comment', function(Request $request, Response $response){
     $compid = $request->getParam('compid');
     $comment = $request->getParam('comment');
 
-    $tsql = "UPDATE competiton SET comment = '$comment' WHERE competitionid = '$compid'";
+    $tsql = "UPDATE competiton SET competitormsg = '$comment' WHERE competitionid = '$compid'";
 
     $db = new db();
     // Connect
