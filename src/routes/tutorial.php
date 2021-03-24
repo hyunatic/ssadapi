@@ -93,7 +93,7 @@ $app->post('/api/user/tutlist', function(Request $request, Response $response){
 $app->post('/api/prof/tutlist', function(Request $request, Response $response){
     $name = $request->getParam('name');
     $tutgrp = $request->getParam('tutgrp');
-    $tsql = "SELECT * From tutorial WHERE tutgrp = '$tutgrp' AND name = '$name'";
+    $tsql = "SELECT * From tutorial WHERE tutgrp = '$tutgrp' AND createdby = '$name'";
 
     $db = new db();
     // Connect
