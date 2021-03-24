@@ -90,4 +90,18 @@ $app->post('/api/user/tutlist', function(Request $request, Response $response){
     echo json_encode($results);
 });
 
+$app->post('/api/user/proftutlist', function(Request $request, Response $response){
+    $name = $request->getParam('name');
+    $tutgrp = $request->getParam('tutgrp');
+    $tsql = "SELECT * From tutorial WHERE tutgrp = '$tutgrp' AND name = '$name'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+});
+
 ?>
