@@ -160,7 +160,7 @@ $app->post('/api/start/compete', function(Request $request, Response $response){
 $app->post('/api/get/challengers', function(Request $request, Response $response){
     $competitorid = $request->getParam("competitorid");
 
-    $tsql = "Select userlogin.id, userlogin.name, leaderboard.score, tutorial.tutname, competiton.competitionid from competiton, userlogin, tutorial, leaderboard Where competiton.competitorid = '$competitorid' AND competiton.requestorid = userlogin.id AND competiton.tutid = tutorial.tutid AND competiton.leaderboardid = leaderboard.id";
+    $tsql = "Select userlogin.id, userlogin.name, leaderboard.score, tutorial.tutname, competiton.competitionid, leaderboard.tutid from competiton, userlogin, tutorial, leaderboard Where competiton.competitorid = '$competitorid' AND competiton.requestorid = userlogin.id AND competiton.tutid = tutorial.tutid AND competiton.leaderboardid = leaderboard.id";
 
     $db = new db();
     // Connect
@@ -174,7 +174,7 @@ $app->post('/api/get/challengers', function(Request $request, Response $response
 
 $app->post('/api/get/competitors', function(Request $request, Response $response){
     $requestorid = $request->getParam("requestorid");
-    $tsql = "Select userlogin.id, userlogin.name, leaderboard.score, tutorial.tutname, competiton.competitionid from competiton, userlogin, tutorial, leaderboard Where competiton.requestorid = '$requestorid' AND competiton.competitorid = userlogin.id AND competiton.tutid = tutorial.tutid AND competiton.leaderboardid = leaderboard.id";
+    $tsql = "Select userlogin.id, userlogin.name, leaderboard.score, tutorial.tutname, competiton.competitionid, leaderboard.tutid from competiton, userlogin, tutorial, leaderboard Where competiton.requestorid = '$requestorid' AND competiton.competitorid = userlogin.id AND competiton.tutid = tutorial.tutid AND competiton.leaderboardid = leaderboard.id";
 
     $db = new db();
     // Connect
@@ -206,6 +206,22 @@ $app->post('/api/get/comment', function(Request $request, Response $response){
     $compid = $request->getParam('compid');
 
     $tsql = "SELECT * From competiton WHERE competitionid = '$compid'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
+$app->post('/api/competitor', function(Request $request, Response $response){
+    $studid = $request->getParam('studid');
+    $tutid = $request->getParam('tutid');
+
+    $tsql = "SELECT * From leaderboard WHERE tutid = '$tutid' AND studid = '$studid' ORDER BY score DESC";
 
     $db = new db();
     // Connect
