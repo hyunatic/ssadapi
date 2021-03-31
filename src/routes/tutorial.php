@@ -77,7 +77,7 @@ $app->get('/api/tutlist', function(Request $request, Response $response){
 
 $app->post('/api/user/tutlist', function(Request $request, Response $response){
     $tutgrp = $request->getParam('tutgrp');
-    $tsql = "SELECT * From tutorial WHERE tutgrp = '$tutgrp' AND createdby LIKE Prof%";
+    $tsql = "SELECT * From tutorial WHERE tutgrp = '$tutgrp' AND createdby LIKE 'Prof%'";
 
     $db = new db();
     // Connect
