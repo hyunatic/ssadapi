@@ -54,7 +54,7 @@ $app->post('/api/student/submission', function(Request $request, Response $respo
 
 $app->post('/api/submission', function(Request $request, Response $response){
     $name = $request->getParam('name');
-    $image = $request->getParam('image');
+    $image = 'data:image/jpeg;base64,' . $request->getParam('image');
     $date = $request->getParam('date');
     $tutgrp = $request->getParam('tutgrp');
     $tutid = $request->getParam('tutid');
@@ -244,6 +244,17 @@ $app->post('/api/user/competitor', function(Request $request, Response $response
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($results);
+});
+
+$app->post('/api/answer', function(Request $request, Response $response){
+
+    $allPostVars = $request->getParsedBody();
+    $questionID = $request->getParam('questionID');
+    $map = $request->getParam('map');
+
+    //var_dump($allPostVars['map']);
+    echo json_encode($map);
+    echo $questionID;
 });
 
 ?>

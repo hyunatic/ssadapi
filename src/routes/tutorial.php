@@ -7,11 +7,10 @@ $app->post('/api/add/tutorial', function(Request $request, Response $response){
     $tutname = $request->getParam('tutname');
     $tutgrp = $request->getParam('tutgrp');
     $createdby = $request->getParam('createdby');
-    $difficulty = $request->getParam('difficulty');
     $coins = $request->getParam('coins');
 
-    $sql = "INSERT INTO tutorial (tutname, tutgrp, createdby,difficulty,coins) VALUES
-    (:tutname,:tutgrp,:createdby,:difficulty,:coins)";
+    $sql = "INSERT INTO tutorial (tutname, tutgrp, createdby,coins) VALUES
+    (:tutname,:tutgrp,:createdby,:coins)";
 
     try{
         // Get DB Object
@@ -24,7 +23,6 @@ $app->post('/api/add/tutorial', function(Request $request, Response $response){
         $stmt->bindParam(':tutname', $tutname);
         $stmt->bindParam(':tutgrp',  $tutgrp);
         $stmt->bindParam(':createdby',   $createdby);
-        $stmt->bindParam(':difficulty',   $difficulty);
         $stmt->bindParam(':coins',   $coins);
 
         $stmt->execute();
@@ -79,7 +77,7 @@ $app->get('/api/tutlist', function(Request $request, Response $response){
 
 $app->post('/api/user/tutlist', function(Request $request, Response $response){
     $tutgrp = $request->getParam('tutgrp');
-    $tsql = "SELECT * From tutorial WHERE tutgrp = '$tutgrp'";
+    $tsql = "SELECT * From tutorial WHERE tutgrp = '$tutgrp' AND createdby LIKE Prof%";
 
     $db = new db();
     // Connect
@@ -103,5 +101,19 @@ $app->post('/api/prof/tutlist', function(Request $request, Response $response){
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($results);
 });
+
+$app->post('/api/student/tutlist', function(Request $request, Response $response){
+    $createdby = $request->getParam('createdby');
+    $tsql = "SELECT * From tutorial WHERE createdby = '$tutgrp'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+});
+
 
 ?>

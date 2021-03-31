@@ -112,7 +112,6 @@ Tutorial:
     "tutname" : string,
     "tutgrp": string,
     "createdby": string,
-    "difficulty": string,
     "coins": string
 }
 
@@ -125,11 +124,25 @@ Tutorial:
 // Get Tutorial Group List //
 /api/tutlist [GET]
 
-// Get Current User's Tutorial Group Question List //
+// Get Current Student Tutorial Group Question List Created by Prof //
 /api/user/tutlist [POST]
 {
     "tutgrp": string
 }
+
+// Get Current Prof Tutorial Group Question List (Website) //
+/api/prof/tutlist [POST]
+{
+    "name": string
+    "tutgrp": string
+}
+
+// Get Current Student Tutorial Group Question List Created by Student //
+/api/student/tutlist [POST]
+{
+    "createdby": string
+}
+
 
 Question:
 // Add Question on Selected Tutorial List //
