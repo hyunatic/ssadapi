@@ -25,6 +25,7 @@ require '../src/routes/auth.php';
 require '../src/routes/game.php';
 require '../src/routes/tutorial.php';
 require '../src/routes/question.php';
+require '../src/routes/savedata.php';
 
 
 

@@ -59,7 +59,7 @@ $app->post('/api/submission', function(Request $request, Response $response){
     $tutgrp = $request->getParam('tutgrp');
     $tutid = $request->getParam('tutid');
     $studid = $request->getParam('studid');
-    $score = "No score";
+    $score = $request->getParam('score');
     $comment = "No comment";
 
     $sql = "INSERT INTO leaderboard (name, image, date, score, tutgrp, tutid, comment, studid) VALUES

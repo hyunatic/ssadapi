@@ -86,7 +86,7 @@ LeaderBoard:
     "id" : string
 }
 
-// Unity Game application to submit student's answers //
+// Unity Game application to submit student's answers (Form Zhenwei) //
 /api/submission [POST]
 {
     "name" : string,
@@ -95,6 +95,7 @@ LeaderBoard:
     "tutgrp" : string,
     "tutid" : string,
     "studid" : string,
+    "score" : string,
 }
 
 // Professor to mark student's score and give comments //
@@ -146,11 +147,15 @@ Tutorial:
 
 Question:
 // Add Question on Selected Tutorial List //
-/api/add/tutquest
+**IMPORTANT For WEBGL to DB, post to me tutid = 0, tutgrp = "" (To Zhenwei / Tong Liang)
+/api/add/tutquest [POST]
 {
     "tutid": string,
     "tutgrp": string,
-    "question": string
+    "question": string,
+    "solution": string,
+    "level": string,
+    "section": string
 }
 
 // Delete Question on Selected Tutorial List //
@@ -169,4 +174,28 @@ Question:
 /api/show/unity/tutquest [POST]
 {
     "tutid": string
+}
+
+// Get Current User Saved Data (Unity) //
+/api/get/savedata [POST]
+{
+    userid: "string",
+}
+
+// Insert Current User Saved Data (Unity) //
+/api/insert/savedata [POST]
+{
+    userid: "string",
+    level: "string",
+    section: "string",
+    tutid: "string"
+}
+
+// Update Current User Saved Data (Unity) //
+/api/update/savedata [POST]
+{
+    userid: "string",
+    level: "string",
+    section: "string",
+    tutid: "string"
 }
