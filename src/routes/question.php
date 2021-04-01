@@ -86,7 +86,7 @@ $app->post('/api/show/tutquest', function(Request $request, Response $response){
 $app->post('/api/show/unity/tutquest', function(Request $request, Response $response){
     $tutid = $request->getParam('tutid');
 
-    $tsql = "SELECT questid, question, tutgrp, tutid From quest WHERE tutid = $tutid";
+    $tsql = "SELECT questid, question, tutgrp, solution, tutid From quest WHERE tutid = $tutid";
 
     $db = new db();
     // Connect
