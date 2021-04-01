@@ -116,29 +116,6 @@ $app->post('/api/show/tutquest', function(Request $request, Response $response){
 });
 
 $app->post('/api/show/unity/tutquest', function(Request $request, Response $response){
-    // $tutid = $request->getParam('tutid');
-
-    // $tsql = "SELECT questid, question, tutgrp, tutid, solution From quest WHERE tutid = $tutid";;
-
-    // $conn = sqlGetConnection();
-    // $result = mysqli_query($conn,$tsql);
-    // $totalrecord = mysqli_num_rows($result);
-    // $counter = 0;
-
-    // $output = '[';
-    // if(mysqli_num_rows($result) > 0){
-    //     while($row = mysqli_fetch_assoc($result)){
-    //        if(++$counter == $totalrecord){
-    //            //Last Record
-    //             $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":'. '"'.json_decode($row['solution']) . '"' .'}]';
-    //        }
-    //        else{
-    //             $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":'. '"'.json_decode($row['solution']) . '"' .'},';
-    //        }
-    //     }
-    // }
-    // echo $output;
-
     $tutid = $request->getParam('tutid');
 
     $tsql = "SELECT questid, question, tutgrp, tutid, solution From quest WHERE tutid = $tutid";
