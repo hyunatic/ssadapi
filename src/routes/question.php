@@ -2,6 +2,38 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+function sqlGetConnection()
+{    
+ 
+    $servername = 'asedb.mysql.database.azure.com';
+    $username = 'aseadmin@asedb';
+    $password = 'Pa$$w0rd';
+    $dbname = 'ssad';
+    try{
+    $conn = new mysqli($servername,$username,$password,$dbname);
+    }
+    catch(Exception $e)
+    {
+        die(print_r($e->getMessage() ) );
+    }
+	return $conn;
+}	
+
+function sqlQuery($conn, $sql, $params = [])
+{
+    $getResults = $conn->prepare($sql);
+    $getResults->execute($params);
+    $results = $getResults->fetchAll(PDO::FETCH_ASSOC);
+	return $results;
+}
+
+
+function sqlExecute($conn, $sql, $params = [])
+{
+    $getResults = $conn->prepare($sql);
+    $getResults->execute($params);
+}
+
 $app->post('/api/add/tutquest', function(Request $request, Response $response){
 
     $tutid = $request->getParam('tutid');
@@ -86,15 +118,25 @@ $app->post('/api/show/tutquest', function(Request $request, Response $response){
 $app->post('/api/show/unity/tutquest', function(Request $request, Response $response){
     $tutid = $request->getParam('tutid');
 
-    $tsql = "SELECT questid, question, tutgrp, solution, tutid From quest WHERE tutid = $tutid";
+    $tsql = "SELECT questid, question, tutgrp, tutid, solution From quest WHERE tutid = $tutid";;
 
-    $db = new db();
-    // Connect
-    $db = $db->connect();
-    $stmt = $db->prepare($tsql);
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($results);
+    $conn = sqlGetConnection();
+    $result = mysqli_query($conn,$tsql);
+    $totalrecord = mysqli_num_rows($result);
+    $counter = 0;
+
+    $output = '[';
+    if(mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_assoc($result)){
+           if(++$counter == $totalrecord){
+                $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":'. '"'.$row['solution'] . '"' .'}]';
+           }
+           else{
+                $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":'. '"'.$row['solution'] . '"' .'},';
+           }
+        }
+    }
+    echo $output;
 });
 
 
