@@ -10,9 +10,10 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
     $solution = $request->getParam('solution');
     $level = $request->getParam('level');
     $section = $request->getParam('section');
+    $hint = $request->getParam('hint');
 
-    $sql = "INSERT INTO quest (question, tutgrp, tutid, solution,level,section) VALUES
-    (:question,:tutgrp,:tutid, :solution, :level, :section)";
+    $sql = "INSERT INTO quest (question, tutgrp, tutid, solution,level,section, hint) VALUES
+    (:question,:tutgrp,:tutid, :solution, :level, :section, :hint)";
 
     try{
         // Get DB Object
@@ -28,6 +29,7 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
         $stmt->bindParam(':solution',   $solution);
         $stmt->bindParam(':level',   $level);
         $stmt->bindParam(':section',   $section);
+        $stmt->bindParam(':hint',   $hint);
 
         $stmt->execute();
 

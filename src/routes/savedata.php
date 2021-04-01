@@ -21,9 +21,11 @@ $app->post('/api/insert/savedata', function(Request $request, Response $response
     $level = $request->getParam('level');
     $section = $request->getParam('section');
     $tutid = $request->getParam('tutid');
+    $threshold = $request->getParam('threshold');
+    
 
-    $sql = "INSERT INTO saveddata (userid, level, section,tutid) VALUES
-    (:userid, :level, :section, :tutid)";
+    $sql = "INSERT INTO saveddata (userid, level, section,tutid, threshold) VALUES
+    (:userid, :level, :section, :tutid, :threshold)";
 
     try{
         // Get DB Object
@@ -37,10 +39,11 @@ $app->post('/api/insert/savedata', function(Request $request, Response $response
         $stmt->bindParam(':level',   $level);
         $stmt->bindParam(':section',   $section);
         $stmt->bindParam(':tutid',   $tutid);
+        $stmt->bindParam(':threshold',  $threshold);
 
         $stmt->execute();
 
-        $tsql1 = "SELECT * From quest ORDER BY questid DESC LIMIT 1";
+        $tsql1 = "SELECT * From quest WHERE userid = '$userid' AND tutid = '$tutid' ORDER BY questid DESC LIMIT 1";
         $stmt = $db->prepare($tsql1);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -59,8 +62,9 @@ $app->post('/api/update/savedata', function(Request $request, Response $response
     $level = $request->getParam('level');
     $section = $request->getParam('section');
     $tutid = $request->getParam('tutid');
+    $threshold = $request->getParam('threshold');
 
-    $sql = "UPDATE saveddata SET level = '$level', section = '$section' WHERE userid = '$userid' AND tutid = '$tutid'";
+    $sql = "UPDATE saveddata SET level = '$level', section = '$section', threshold = '$threshold' WHERE userid = '$userid' AND tutid = '$tutid'";
        
     $db = new db();
     // Connect
@@ -71,5 +75,6 @@ $app->post('/api/update/savedata', function(Request $request, Response $response
     echo '[{"response": "Update Saved Data Successfully"}]';
 
 });
+
 
 ?>
