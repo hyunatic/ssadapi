@@ -43,7 +43,7 @@ $app->post('/api/insert/savedata', function(Request $request, Response $response
 
         $stmt->execute();
 
-        $tsql1 = "SELECT * From quest WHERE userid = '$userid' AND tutid = '$tutid' ORDER BY questid DESC LIMIT 1";
+        $tsql1 = "SELECT * From saveddata WHERE userid = '$userid' AND tutid = '$tutid' ORDER BY saveid DESC LIMIT 1";
         $stmt = $db->prepare($tsql1);
         $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -64,7 +64,7 @@ $app->post('/api/update/savedata', function(Request $request, Response $response
     $tutid = $request->getParam('tutid');
     $threshold = $request->getParam('threshold');
 
-    $sql = "UPDATE saveddata SET level = '$level', section = '$section', threshold = '$threshold' WHERE userid = '$userid' AND tutid = '$tutid'";
+    $tsql = "UPDATE saveddata SET level = '$level', section = '$section', threshold = '$threshold' WHERE userid = '$userid' AND tutid = '$tutid'";
        
     $db = new db();
     // Connect
