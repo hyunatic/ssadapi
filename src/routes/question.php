@@ -109,13 +109,14 @@ $app->post('/api/show/tutquest', function(Request $request, Response $response){
 $app->post('/api/show/unity/tutquest', function(Request $request, Response $response){
     $tutid = $request->getParam('tutid');
 
-    $tsql = "SELECT questid, question, tutgrp, tutid, solution, hint From quest WHERE tutid = $tutid";;
+    $tsql = "SELECT questid, question, tutgrp, tutid, solution, hint, level From quest WHERE tutid = $tutid";
 
     $conn = sqlGetConnection();
     $result = mysqli_query($conn,$tsql);
     $totalrecord = mysqli_num_rows($result);
     $counter = 0;
 
+    // | in the back the JSON is special for this function only
     $output = '[';
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){
