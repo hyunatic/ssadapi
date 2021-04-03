@@ -109,7 +109,7 @@ $app->post('/api/show/tutquest', function(Request $request, Response $response){
 $app->post('/api/show/unity/tutquest', function(Request $request, Response $response){
     $tutid = $request->getParam('tutid');
 
-    $tsql = "SELECT questid, question, tutgrp, tutid, solution, hint, level From quest WHERE tutid = $tutid";
+    $tsql = "SELECT questid, question, tutgrp, tutid, solution, hint, level, section From quest WHERE tutid = $tutid";
 
     $conn = sqlGetConnection();
     $result = mysqli_query($conn,$tsql);
@@ -121,10 +121,10 @@ $app->post('/api/show/unity/tutquest', function(Request $request, Response $resp
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){
            if(++$counter == $totalrecord){
-                $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":'. $row['solution'] .',"hint":' .$row['hint'] .'}|]';
+                $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"level":'. '"'.$row['level'] . '"' .',"section":'. '"'.$row['section'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":'. $row['solution'] .',"hint":' .$row['hint'] .'}|]';
            }
            else{
-                $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":' .$row['solution'] .',"hint":' .$row['hint'] .'}|,';
+                $output .= '{'. '"questid":'. '"'.$row['questid'] . '"' .',"question":'. '"'.$row['question'] . '"' .',"level":'. '"'.$row['level'] . '"' .',"section":'. '"'.$row['section'] . '"' .',"tutgrp":'. '"'.$row['tutgrp'] . '"' .',"tutid":'. '"'.$row['tutid'] . '"' . ',"solution":' .$row['solution'] .',"hint":' .$row['hint'] .'}|,';
            }
         }
     }
