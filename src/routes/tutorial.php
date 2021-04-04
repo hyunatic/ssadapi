@@ -104,7 +104,7 @@ $app->post('/api/prof/tutlist', function(Request $request, Response $response){
 
 $app->post('/api/student/tutlist', function(Request $request, Response $response){
     $createdby = $request->getParam('createdby');
-    $tsql = "SELECT * From tutorial WHERE createdby = '$tutgrp'";
+    $tsql = "SELECT * From tutorial WHERE createdby = '$createdby'";
 
     $db = new db();
     // Connect
