@@ -2,22 +2,6 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-function sqlGetConnection()
-{    
-    $servername = 'asedb.mysql.database.azure.com';
-    $username = 'aseadmin@asedb';
-    $password = 'Pa$$w0rd';
-    $dbname = 'ssad';
-    
-    try{
-    $conn = new mysqli($servername,$username,$password,$dbname);
-    }
-    catch(Exception $e)
-    {
-        die(print_r($e->getMessage() ) );
-    }
-	return $conn;
-}
 
 $app->post('/api/delete/tutquest', function(Request $request, Response $response){
     $questid = $request->getParam('questid');
@@ -87,13 +71,16 @@ $app->post('/api/add/web/tutquest', function(Request $request, Response $respons
         $stmt->execute();
        
         $tsql1 = "SELECT * From quest ORDER BY tutid DESC LIMIT 1";
+        $servername = 'asedb.mysql.database.azure.com';
+        $username = 'aseadmin@asedb';
+        $password = 'Pa$$w0rd';
+        $dbname = 'ssad';
 
-        $conn = sqlGetConnection();
-        $result = mysqli_query($conn,$tsql1);
+        $conn = new mysqli($servername,$username,$password,$dbname);
+        $result = mysqli_query($conn,$tsql);
         $totalrecord = mysqli_num_rows($result);
         $counter = 0;
 
-        // | in the back the JSON is special for this function only
         $output = '[';
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_assoc($result)){
@@ -106,10 +93,10 @@ $app->post('/api/add/web/tutquest', function(Request $request, Response $respons
             }
         }
         echo $output;
-        } 
-        catch(PDOException $e){
-            echo '[{"error": {"text": '.$e->getMessage().'}]';
-        }
+
+    } catch(PDOException $e){
+        echo '[{"error": {"text": '.$e->getMessage().'}]';
+    }
 });
 
 
