@@ -65,6 +65,8 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
 
         $stmt->execute();
 
+        echo '[{"response": "Tutorial Question Added Successfully"}]';
+
     } catch(PDOException $e){
         echo '[{"error": {"text": '.$e->getMessage().'}]';
     }

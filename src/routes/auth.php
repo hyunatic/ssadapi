@@ -33,6 +33,22 @@ $app->post('/api/email/check', function(Request $request, Response $response){
     
 });
 
+$app->post('/api/myclassmate', function(Request $request, Response $response){
+    $tutgrp = $request->getParam('tutgrp');
+    $email = $request->getParam('email');
+
+    $tsql = "SELECT name, id From userlogin WHERE email != '$email' AND tutgrp = '$tutgrp' AND usertype = 'Student'";
+
+    $db = new db();
+    // Connect
+    $db = $db->connect();
+    $stmt = $db->prepare($tsql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($results);
+    
+});
+
 $app->post('/api/unity/login', function(Request $request, Response $response){
     $email = $request->getParam('email');
     $password = $request->getParam('password');
