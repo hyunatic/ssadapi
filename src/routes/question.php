@@ -5,7 +5,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 
 $app->post('/api/add/tutquest', function(Request $request, Response $response){
-
     $tutid = $request->getParam('tutid');
     $tutgrp = $request->getParam('tutgrp');
     $question = $request->getParam('question');
@@ -38,6 +37,15 @@ $app->post('/api/add/tutquest', function(Request $request, Response $response){
 
         $stmt->execute();
        
+        $tsql1 = "SELECT * From quest ORDER BY tutid DESC LIMIT 1";
+        $stmt = $db->prepare($tsql1);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt->execute();
+       
+        echo json_encode($results);
+
     } catch(PDOException $e){
         echo '[{"error": {"text": '.$e->getMessage().'}]';
     }
