@@ -246,16 +246,5 @@ $app->post('/api/user/competitor', function(Request $request, Response $response
     echo json_encode($results);
 });
 
-$app->post('/api/answer', function(Request $request, Response $response){
-
-    $allPostVars = $request->getParsedBody();
-    $questionID = $request->getParam('questionID');
-    $map = $request->getParam('map');
-
-    //var_dump($allPostVars['map']);
-    echo json_encode($map);
-    echo $questionID;
-});
-
 
 ?>

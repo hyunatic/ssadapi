@@ -2,27 +2,17 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-function sqlGetConnection(){    
-    $servername = 'asedb.mysql.database.azure.com';
-    $username = 'aseadmin@asedb';
-    $password = 'Pa$$w0rd';
-    $dbname = 'ssad';
-    try{
-    $conn = new mysqli($servername,$username,$password,$dbname);
-    }
-    catch(Exception $e)
-    {
-        die(print_r($e->getMessage() ) );
-    }
-	return $conn;
-}	
-
 $app->post('/api/show/unity/tutquest', function(Request $request, Response $response){
     $tutid = $request->getParam('tutid');
 
     $tsql = "SELECT questid, question, tutgrp, tutid, solution, hint, level, section From quest WHERE tutid = $tutid";
 
-    $conn = sqlGetConnection();
+    $servername = 'asedb.mysql.database.azure.com';
+    $username = 'aseadmin@asedb';
+    $password = 'Pa$$w0rd';
+    $dbname = 'ssad';
+
+    $conn = new mysqli($servername,$username,$password,$dbname);
     $result = mysqli_query($conn,$tsql);
     $totalrecord = mysqli_num_rows($result);
     $counter = 0;
