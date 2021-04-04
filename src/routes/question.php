@@ -70,7 +70,7 @@ $app->post('/api/add/web/tutquest', function(Request $request, Response $respons
 
         $stmt->execute();
        
-        $tsql1 = "SELECT * From quest ORDER BY tutid DESC LIMIT 1";
+        $tsql1 = "SELECT * From quest ORDER BY questid DESC LIMIT 1";
         $servername = 'asedb.mysql.database.azure.com';
         $username = 'aseadmin@asedb';
         $password = 'Pa$$w0rd';
