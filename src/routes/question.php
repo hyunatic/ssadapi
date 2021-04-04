@@ -77,7 +77,7 @@ $app->post('/api/add/web/tutquest', function(Request $request, Response $respons
         $dbname = 'ssad';
 
         $conn = new mysqli($servername,$username,$password,$dbname);
-        $result = mysqli_query($conn,$tsql);
+        $result = mysqli_query($conn,$tsql1);
         $totalrecord = mysqli_num_rows($result);
         $counter = 0;
 
